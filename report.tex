@@ -1,0 +1,198 @@
+\documentclass[12pt,twoside,a4paper,tikz,border=5]{refart} 
+% add russian language
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[russian]{babel}
+
+\usepackage{indentfirst}
+\setlength{\parindent}{1cm}
+
+% setup titles 
+\usepackage{titlesec}
+	\titleformat{\section}
+		{\normalfont\fontsize{16}{0}\bfseries}{\thesection}{1em}{}
+	\titleformat{\subsection}
+		{\normalfont\fontsize{14}{0}\bfseries}{\thesubsection}{1em}{}
+	\titleformat{\subsubsection}
+		{\bf\fontsize{14}{0}}{\thesubsubsection}{1em}{}
+
+	\titlespacing*{\section}
+		{0pt}{5ex}{3ex} % left before after
+	\titlespacing*{\subsection}
+		{0pt}{3ex}{1ex}
+	\titlespacing*{\subsubsection}
+		{0pt}{3ex}{1ex}
+	%start each section on new page
+	\newcommand{\sectionbreak}{\clearpage}
+
+
+% set up better resolution
+\pdfpkmode{dpdfezzz}
+\pdfpkresolution=8000
+
+% set fraction of text
+\settextfraction{0.88}
+
+%colorbox for menu
+\usepackage[most]{tcolorbox}
+%\newtcbox{\menubox}{nobeforeafter,colframe=mycolor,colback=mycolor!10!white,boxrule=0.5pt,arc=4pt,
+%	boxsep=0pt,left=6pt,right=6pt,top=6pt,bottom=6pt,tcbox raise base}
+
+\definecolor{myblue}{rgb}{0.000, 1.000, 1.000}
+\definecolor{dodgerblue}{rgb}{0.117,0.564,1.000}
+
+\newtcbox{\menubox}{enhanced,nobeforeafter,tcbox raise base,boxrule=0.4pt,top=0mm,bottom=0mm,
+	right=1mm,left=1mm,arc=2pt,boxsep=2pt,before upper={\vphantom{dlg}},
+	colframe=blue!50!black,coltext=black,colback=myblue,
+}
+
+\robustify{\menubox}
+
+\newtcbox{\filebox}{enhanced,nobeforeafter,tcbox raise base,boxrule=0.4pt,top=0mm,bottom=0mm,
+	right=0mm,left=4mm,arc=1pt,boxsep=2pt,before upper={\vphantom{dlg}},
+	colframe=green!50!black,coltext=green!25!black,colback=myblue,
+	overlay={\begin{tcbclipinterior}\fill[dodgerblue] (frame.south west)
+			rectangle node[text=white,font=\sffamily\bfseries\tiny,rotate=90] {FILE} ([xshift=4mm]frame.north west);\end{tcbclipinterior}}}
+
+\robustify{\filebox}
+
+\newtcbox{\dirbox}{enhanced,nobeforeafter,tcbox raise base,boxrule=0.4pt,top=0mm,bottom=0mm,
+	right=0mm,left=4mm,arc=1pt,boxsep=2pt,before upper={\vphantom{dlg}},
+	colframe=green!50!black,coltext=green!25!black,colback=myblue,
+	overlay={\begin{tcbclipinterior}\fill[dodgerblue] (frame.south west)
+			rectangle node[text=white,font=\sffamily\bfseries\tiny,rotate=90] {DIR} ([xshift=4mm]frame.north west);\end{tcbclipinterior}}}
+
+\robustify{\dirbox}
+
+% for figures
+\usepackage{subcaption}
+\DeclareCaptionLabelFormat{gostfigure}{Рисунок #2}
+\DeclareCaptionLabelFormat{slide}{Слайд №#2}
+\DeclareCaptionLabelFormat{gosttable}{Таблица #2}
+\DeclareCaptionLabelSeparator{gost}{~---~}
+
+\captionsetup{labelsep=gost}
+\captionsetup[figure]{labelformat=gostfigure}
+\captionsetup[table]{labelformat=gosttable}
+\captionsetup{figurewithin=none, tablewithin=none}
+\renewcommand{\thesubfigure}{\asbuk{subfigure}}
+
+%for crop
+\usepackage{graphicx}
+
+% for tables and image inside
+\usepackage{array}
+\usepackage{tabularx,booktabs} 
+% biblio style
+\bibliographystyle{utf8gost705u} 
+
+% for margins
+\setlength\oddsidemargin{-0in}
+\setlength\evensidemargin{-0in}
+\setlength\textwidth{165mm}
+
+% for web links
+\usepackage{hyperref}
+\hypersetup{
+	colorlinks=true,
+	linkcolor=blue,
+	urlcolor=blue,
+}
+
+\urlstyle{same}
+
+% for header on every page
+\usepackage{fancyhdr}
+\usepackage{lipsum}% just to generate text for the example
+
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[L]{\rightmark}
+\fancyhead[R]{\thepage}
+\renewcommand{\headrulewidth}{0.4pt}
+%\renewcommand{\footrulewidth}{0.4pt}% default is 0pt
+
+% Tables and pictures captions align
+\usepackage[]{caption}
+\captionsetup[table]{justification=raggedleft} 
+\captionsetup[figure]{justification=centering,labelsep=endash} 
+
+% for enumerate style
+\renewcommand\labelenumii{\theenumi.\arabic{enumii}.}
+
+% for pagebreak in tabularx
+\usepackage{ltablex}
+
+\newcounter{titem}[table]
+\newenvironment{titem}[2][]{\refstepcounter{titem}\par\medskip
+	\noindent \textit{
+		\begin{flushleft}
+			\begin{hyphenrules}{nohyphenation}
+				\thetitem.~#1~#2\newline
+			\end{hyphenrules}
+		\end{flushleft}
+	}}{\medskip}
+
+\begin{document}
+	\begin{titlepage}
+		\centering
+		{\scshape\small Национальный исследовательский университет \\
+			``Высшая школа экономики'' \par}
+		\vspace{2cm}
+		{\Huge\bfseries ОТЧЁТ ПО ПРАКТИКЕ\par}
+		\vspace{2cm}
+		{\scshape\Large Исследование возможного сокращения перебора при выборе параметров $ p, \beta $ \\
+			для алгоритма $ A-Ward_{p\beta}$ \par}
+		\vspace{1.5cm}
+				
+		\vfill
+		\begin{center}
+			\begin{tabular}{  p{7cm}  p{4cm} p{5cm}  } 
+				& & \textbf{Студент:}\\ 
+				& & Еремейкин П.А. \\ 
+				& & группа \\
+				& & мНоД16\_ТМСС\\
+				& & \\
+				& & \textbf{Руководитель: }\\
+				& & профессор\\
+				& & Миркин Б.Г.\\
+			\end{tabular}
+		\end{center}
+		\vfill
+		{Москва \the\year\par}
+	\end{titlepage}
+
+
+	\tableofcontents 
+	\newpage
+	\section{Основные положения}
+	
+		Исследование выполняется в рамках развития пакета программ СИК (Система Интеллектуальной Кластеризации), который был разработан в ходе курсового проекта ``Алгоритмы интеллектуализации метода k-средних''. Этот пакет предназначен для применения современных интеллектуальных методов при решении задач кластеризации. 
+		
+		В состав пакета входят методы иерархического кластер-анализа: метод аномальных кластеров, алгоритмы $ Ward $, $ A-Ward $, $ A-Ward_{p\beta} $ а также дивизивные методы. 
+		
+		С технической точки зрения СИК представляет собой набор Python модулей, объединённых в единую программу при помощи графического пользовательского интерфейса.  
+		
+		В рамках данной практики рассматривается проблема выбора параметров для алгоритма $ A-Ward_{p\beta} $. Этот алгоритм представляет собой модифицированную версию иерархического алгоритма $ A-Ward $ и вводит два параметра: $ p $ и $ \beta $. Оптимальные значения параметров зависят от конкретной задачи и данных, к которым применяется алгоритм. На настоящее время не существует рекомендаций по эффективному выбору этих параметров, а единственный обоснованный метод --- перебор всех возможных значений с последующей оценкой результата для каждой пары $ (p_i,\beta_i) $  по эмпирической характеристике. Такой подход требует большого времени вычисления, что во многих случаях делает его неприменимым на практике.
+		
+		Для решения задачи выбора параметров $ p$, $\beta $ в условиях ограниченного времени была выдвинута гипотеза о возможном сокращении перебора. Согласно этой гипотезе, результаты выбора оптимальных значений по всем доступным объектам и по сокращённой выборке из этих объектов различаются не существенно. Цель данной работы состоит в экспериментальной проверке приведённой гипотезы, оценке различных стратегий формирования сокращённой выборки, их характеристик относительно качества результата и затрачиваемого времени.
+	
+	\section{Алгоритм $ A-Ward_{p\beta} $}
+		\subsection{Постановка задачи. Кластеризация}
+			Алгоритм $ A-Ward_{p\beta} $ предназначен для решения задачи кластеризации, то есть выделения из таблиц наблюдения множеств (кластеров) таким образом, чтобы сходные объекты попадали в один и тот же кластер, а несходные --- в разные кластеры \cite{data-science}. 
+	
+	
+	\section{Методика эксперимента}
+	\section{Экспериментальное обеспечение}
+	\section{Результаты}
+	\section{Выводы}
+	
+	% Список литературы
+	\newpage
+	\nocite{amorim} \nocite{ward} \nocite{boley} \nocite{tasoulis} \nocite{kovaleva} \nocite{mirkin}
+	\addcontentsline{toc}{section}{Список литературы}
+	\bibliography{bibliography}
+	
+	
+
+\end{document}
