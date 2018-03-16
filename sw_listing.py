@@ -1,3 +1,7 @@
+from clustering.agglomerative.ik_means.ik_means import IKMeans
+from clustering.agglomerative.a_ward_pb import AWardPB
+import numpy as np
+
 class AvgSilhouetteWidthCriterion:
 	@staticmethod
 	def distance(point1, point2):
@@ -7,7 +11,6 @@ class AvgSilhouetteWidthCriterion:
 		data = cluster_structure.data
 		dist_list = list()
 		for point_index_j in cluster.points_indices:
-			# if point_index_i != point_index_j:
 			point_i = data[point_index_i]
 			point_j = data[point_index_j]
 			dist = self.distance(point_i, point_j)
