@@ -1,0 +1,213 @@
+\documentclass[12pt,twoside,a4paper,tikz,border=5]{refart} 
+% add russian language
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[russian]{babel}
+
+\usepackage{indentfirst}
+\setlength{\parindent}{1cm}
+
+% for no sign
+\usepackage{textcomp}
+% for tikz
+\usepackage{pgf,tikz}
+\usepackage{mathrsfs}
+\usetikzlibrary{arrows}
+
+% for table columns
+
+\usepackage{array}
+\newcolumntype{L}[1]{>{\raggedright\let\newline\\\arraybackslash\hspace{0pt}}m{#1}}
+\newcolumntype{C}[1]{>{\centering\let\newline\\\arraybackslash\hspace{0pt}}m{#1}}
+\newcolumntype{R}[1]{>{\raggedleft\let\newline\\\arraybackslash\hspace{0pt}}m{#1}}
+
+
+% for code listings
+\usepackage{listings}
+\usepackage{color}
+
+\definecolor{codegreen}{rgb}{0,0.6,0}
+\definecolor{codegray}{rgb}{0.5,0.5,0.5}
+\definecolor{codepurple}{rgb}{0.58,0,0.82}
+\definecolor{backcolour}{rgb}{0.95,0.95,0.92}
+
+\lstdefinestyle{mystyle}{
+	backgroundcolor=\color{backcolour},   
+	commentstyle=\color{codegreen},
+	keywordstyle=\color{magenta},
+	numberstyle=\color{codegray},
+	stringstyle=\color{codepurple},
+	basicstyle=\footnotesize\ttfamily,
+	breakatwhitespace=false,         
+	breaklines=true,                 
+	captionpos=b,                    
+	keepspaces=true,                 
+	numbers=left,                    
+	numbersep=5pt,                  
+	showspaces=false,                
+	showstringspaces=false,
+	showtabs=false,                  
+	tabsize=2
+}
+
+\lstset{style=mystyle}
+
+% for empty set
+\usepackage{amssymb}
+%brackets for equation refs
+\usepackage{amsmath}
+% line interval
+\usepackage{setspace}
+\setstretch{1.5}
+
+
+% setup titles 
+\usepackage{titlesec}
+	\titleformat{\section}
+		{\normalfont\fontsize{16}{0}\bfseries}{\thesection}{1em}{}
+	\titleformat{\subsection}
+		{\normalfont\fontsize{14}{0}\bfseries}{\thesubsection}{1em}{}
+	\titleformat{\subsubsection}
+		{\bf\fontsize{14}{0}}{\thesubsubsection}{1em}{}
+
+	\titlespacing*{\section}
+		{0pt}{5ex}{3ex} % left before after
+	\titlespacing*{\subsection}
+		{0pt}{3ex}{1ex}
+	\titlespacing*{\subsubsection}
+		{0pt}{3ex}{1ex}
+	%start each section on new page
+	\newcommand{\sectionbreak}{\clearpage}
+
+
+% set up better resolution
+\pdfpkmode{dpdfezzz}
+\pdfpkresolution=8000
+
+% set fraction of text
+\settextfraction{0.88}
+
+%colorbox for menu
+\usepackage[most]{tcolorbox}
+\definecolor{myblue}{rgb}{0.000, 1.000, 1.000}
+\definecolor{dodgerblue}{rgb}{0.117,0.564,1.000}
+
+
+\newtcolorbox[auto counter]{guide}[1][]{enhanced jigsaw,inherit height,
+	colback=red!5,opacityback=0.9,colframe=red,title=Алгоритм \#\thetcbcounter,
+	grow to left by=4mm,grow to right by=4mm,
+	arc is angular,arc=0mm,
+	fonttitle=\bfseries\large,
+}
+
+\newtcbtheorem[auto counter]{algorithm}{Алгоритм}{
+	breakable,
+	lower separated=false,
+	colback=white!80!gray,
+	colframe=white, fonttitle=\bfseries,
+	colbacktitle=white!50!gray,
+	coltitle=black,
+	enhanced,
+	boxed title style={colframe=black},
+	after skip=20pt
+}{alg}
+
+
+% for figures
+\usepackage{subcaption}
+\DeclareCaptionLabelFormat{gostfigure}{Рисунок #2}
+\DeclareCaptionLabelFormat{slide}{Слайд №#2}
+\DeclareCaptionLabelFormat{gosttable}{Таблица #2}
+\DeclareCaptionLabelSeparator{gost}{~---~}
+
+\captionsetup{labelsep=gost}
+\captionsetup[figure]{labelformat=gostfigure}
+\captionsetup[table]{labelformat=gosttable}
+\captionsetup{figurewithin=none, tablewithin=none}
+\renewcommand{\thesubfigure}{\asbuk{subfigure}}
+
+%for crop
+\usepackage{graphicx}
+
+% for tables and image inside
+\usepackage{array}
+\usepackage{tabularx,booktabs} 
+% biblio style
+\bibliographystyle{utf8gost705u} 
+
+% for margins
+\setlength\oddsidemargin{-0in}
+\setlength\evensidemargin{-0in}
+\setlength\textwidth{165mm}
+
+% for web links
+\usepackage{hyperref}
+\hypersetup{
+	colorlinks=true,
+	linkcolor=blue,
+	urlcolor=blue,
+}
+
+\urlstyle{same}
+
+% for header on every page
+\usepackage{fancyhdr}
+\usepackage{lipsum}% just to generate text for the example
+
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[L]{\rightmark}
+\fancyhead[R]{\thepage}
+\renewcommand{\headrulewidth}{0.4pt}
+%\renewcommand{\footrulewidth}{0.4pt}% default is 0pt
+
+% Tables and pictures captions align
+\usepackage[]{caption}
+\captionsetup[table]{justification=raggedleft} 
+\captionsetup[figure]{justification=centering,labelsep=endash} 
+
+% for enumerate style
+\renewcommand\labelenumii{\theenumi.\arabic{enumii}.}
+
+% for pagebreak in tabularx
+\usepackage{tabularx}
+
+\newcounter{titem}[table]
+\newenvironment{titem}[2][]{\refstepcounter{titem}\par\medskip
+	\noindent \textit{
+		\begin{flushleft}
+			\begin{hyphenrules}{nohyphenation}
+				\thetitem.~#1~#2\newline
+			\end{hyphenrules}
+		\end{flushleft}
+	}}{\medskip}
+
+\begin{document}
+			В таблице \ref{tab:algorithms}
+			\begin{table}[h!]
+				\centering
+				\caption{Рассматриваемые алгоритмы} \label{tab:algorithms}
+				\begin{tabularx}{\textwidth}{|r|r|r|r|}
+					\hline
+					\textnumero & Название                & Размер множеств n    & Число множеств M \\ \hline
+					 1  & Полный перебор           & 1000 & 1 \\ \hline
+   					 2  & Однократный выбор по 100 & 100  & 1 \\ \hline
+					 3  & Однократный выбор по 200 & 200  & 1 \\ \hline
+					 4  & Пятикратный выбор по 100 & 100  & 5 \\  \hline
+					 5  & Пятикратный выбор по 200 & 200  & 5 \\  \hline					
+				\end{tabularx}
+			\end{table}		
+			
+			В таблице \ref{tab:datasets} 
+			\begin{table}[h!]
+				\centering
+				\caption{Рассматриваемые алгоритмы} \label{tab:datasets}
+				\begin{tabularx}{\textwidth}{|r|r|r|r|r|r|}
+					\hline
+					Обозначение               & N & V & C & m & a\\ \hline
+					kovaleva\_1000x15\_c7\_m100\_a0.5 & 1000 & 15 & 7 & 100 & 0.5\\ \hline
+					kovaleva\_1000x15\_c12\_m60\_a0.5 & 1000 & 15 & 12 & 60 & 0.5\\ \hline
+					kovaleva\_1000x15\_c19\_m35\_a0.5 & 1000 & 15 & 19 & 35 & 0.5\\ \hline
+				\end{tabularx}							
+			\end{table}
+\end{document}
